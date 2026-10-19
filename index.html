@@ -31,8 +31,24 @@
     <meta property="twitter:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" />
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#0B132B" />
+    <meta name="theme-color" content="#080E1E" />
     <meta name="color-scheme" content="dark light" />
+
+    <!-- Zero-FOUC Immediate Theme Initializer -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('ersunilpal_theme');
+          if (saved === 'light') {
+            document.documentElement.classList.add('light');
+            document.documentElement.setAttribute('data-theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Google Fonts: Plus Jakarta Sans & Cinzel -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -19,6 +19,7 @@
     background-color: #080E1E;
     color: #F1F5F9;
     overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 
@@ -66,4 +67,233 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ==========================================================================
+   LIGHT MODE ARCHITECTURAL THEME SPECIFICATION
+   High-contrast, zero-lag, instant CSS transition
+   ========================================================================== */
+
+html.light {
+  color-scheme: light;
+}
+
+html.light body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Page container */
+html.light .min-h-screen.bg-\[\#080E1E\] {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Primary section backgrounds */
+html.light .bg-\[\#070D1E\],
+html.light .bg-\[\#080E1E\],
+html.light .bg-\[\#0A162D\],
+html.light .bg-\[\#0A1329\],
+html.light .bg-slate-950 {
+  background-color: #F8FAFC !important;
+}
+
+/* Alternating section backgrounds for visual depth */
+html.light .bg-\[\#091024\],
+html.light .bg-\[\#091428\],
+html.light .bg-\[\#0D162C\] {
+  background-color: #F1F5F9 !important;
+}
+
+/* Cards & Elevated surfaces */
+html.light .bg-slate-900,
+html.light .bg-slate-900\/95,
+html.light .bg-slate-900\/90,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/70,
+html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/50,
+html.light .bg-slate-900\/40 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+/* Floating WhatsApp box in light mode */
+html.light .bg-\[\#091126\] {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* Card inner headers / footers */
+html.light .bg-gradient-to-b.from-\[\#0A1329\].to-\[\#070D1E\] {
+  background-image: none !important;
+  background-color: #F8FAFC !important;
+}
+
+html.light .bg-gradient-to-r.from-teal-900\/60.to-slate-900 {
+  background-image: linear-gradient(to right, #CCFBF1, #F1F5F9) !important;
+}
+
+/* Borders */
+html.light .border-slate-800,
+html.light .border-slate-800\/90,
+html.light .border-slate-800\/80,
+html.light .border-slate-700,
+html.light .border-slate-700\/90,
+html.light .border-slate-700\/80,
+html.light .border-slate-700\/60 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Typography contrast */
+html.light .text-white {
+  color: #0F172A !important;
+}
+
+html.light .text-slate-100 {
+  color: #0F172A !important;
+}
+
+html.light .text-slate-200 {
+  color: #1E293B !important;
+}
+
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400 {
+  color: #64748B !important;
+}
+
+/* Preserve high readability for solid buttons and badges */
+html.light button.bg-teal-400,
+html.light a.bg-teal-400,
+html.light .bg-teal-400 {
+  color: #022C22 !important;
+}
+
+html.light button.bg-teal-400 .text-white,
+html.light a.bg-teal-400 .text-white {
+  color: #022C22 !important;
+}
+
+html.light .text-slate-950 {
+  color: #022C22 !important;
+}
+
+/* Badges with light backgrounds */
+html.light .bg-teal-950\/80,
+html.light .bg-teal-950\/60,
+html.light .bg-teal-950\/50,
+html.light .bg-teal-950\/40,
+html.light .bg-teal-950\/20,
+html.light .bg-teal-500\/20 {
+  background-color: #CCFBF1 !important;
+  color: #0F766E !important;
+  border-color: #99F6E4 !important;
+}
+
+html.light .bg-sky-950\/80,
+html.light .bg-sky-950\/60,
+html.light .bg-sky-950\/50,
+html.light .bg-sky-950\/20 {
+  background-color: #E0F2FE !important;
+  color: #0369A1 !important;
+  border-color: #BAE6FD !important;
+}
+
+html.light .bg-emerald-950\/80,
+html.light .bg-emerald-950\/60,
+html.light .bg-emerald-950\/50,
+html.light .bg-emerald-950\/20 {
+  background-color: #D1FAE5 !important;
+  color: #065F46 !important;
+  border-color: #A7F3D0 !important;
+}
+
+/* Form inputs & interactive fields */
+html.light input,
+html.light textarea,
+html.light select {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.light input:focus,
+html.light textarea:focus,
+html.light select:focus {
+  border-color: #0D9488 !important;
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.15) !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Light mode Blueprint grid */
+html.light .bg-blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px) !important;
+}
+
+html.light .bg-blueprint-grid-dense {
+  background-image: 
+    linear-gradient(to right, rgba(13, 148, 136, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 148, 136, 0.07) 1px, transparent 1px) !important;
+}
+
+/* Light mode Navbar styling */
+html.light header {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light nav a {
+  color: #334155 !important;
+}
+
+html.light nav a:hover {
+  color: #0D9488 !important;
+  background-color: #F1F5F9 !important;
+}
+
+/* Mobile drawer in light mode */
+html.light .fixed.top-0.right-0.bottom-0.bg-\[\#080E1E\] {
+  background-color: #FFFFFF !important;
+  border-left-color: #E2E8F0 !important;
+}
+
+/* Mobile sticky bottom bar in light mode */
+html.light .fixed.bottom-0.bg-\[\#070D1E\]\/95 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-top-color: #E2E8F0 !important;
+  box-shadow: 0 -4px 20px -2px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Hero section headline gradient in light mode */
+html.light .bg-gradient-to-r.from-teal-300 {
+  background-image: linear-gradient(to right, #0D9488, #0284C7, #0F172A) !important;
+}
+
+/* Hero coordinate watermark in light mode */
+html.light .text-slate-500\/50 {
+  color: rgba(100, 116, 139, 0.5) !important;
+}
+
+/* Scrollbar in light mode */
+html.light ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #0D9488;
 }
