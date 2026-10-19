@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Compass, ShieldCheck, MapPin, Phone, Building2, Sparkles, CheckCircle2 } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/content';
@@ -9,7 +9,49 @@ interface HeroProps {
   onExploreServices: () => void;
 }
 
+const FULL_HEADLINE = 'Thoughtful Design. Strong Foundations. Lasting Spaces.';
+
 export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreServices }) => {
+  const [charCount, setCharCount] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    if (!isDeleting) {
+      // Typing phase: type letter-by-letter
+      if (charCount < FULL_HEADLINE.length) {
+        timeoutId = setTimeout(() => {
+          setCharCount((prev) => prev + 1);
+        }, 45); // Typing speed per character
+      } else {
+        // Complete headline typed: pause for exactly 5 seconds (5000ms)
+        timeoutId = setTimeout(() => {
+          setIsDeleting(true);
+        }, 5000);
+      }
+    } else {
+      // Deleting phase: smoothly backspace
+      if (charCount > 0) {
+        timeoutId = setTimeout(() => {
+          setCharCount((prev) => Math.max(0, prev - 1));
+        }, 18); // Fast backspacing speed
+      } else {
+        // Pause briefly after erasing, then start typing again
+        timeoutId = setTimeout(() => {
+          setIsDeleting(false);
+        }, 350);
+      }
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [charCount, isDeleting]);
+
+  // Split headline dynamically preserving gradient and colors
+  const part1 = FULL_HEADLINE.slice(0, Math.min(charCount, 19));
+  const part2 = charCount > 19 ? FULL_HEADLINE.slice(19, Math.min(charCount, 39)) : '';
+  const part3 = charCount > 39 ? FULL_HEADLINE.slice(39, charCount) : '';
+
   return (
     <section
       id="home"
@@ -51,18 +93,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onExploreService
               <span className="text-slate-400 font-normal">Boisar, MH</span>
             </motion.div>
 
-            {/* Main Editorial Headline */}
+            {/* Main Editorial Headline with Dynamic Typewriter Effect */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.7 }}
-              className="text-2xl sm:text-4xl lg:text-4xl xl:text-5xl font-architectural font-bold text-white tracking-tight leading-[1.18] mb-3 sm:mb-4 drop-shadow-md"
+              aria-label={FULL_HEADLINE}
+              className="text-2xl sm:text-4xl lg:text-4xl xl:text-5xl font-architectural font-bold text-white tracking-tight leading-[1.18] mb-3 sm:mb-4 drop-shadow-md min-h-[2.4em] sm:min-h-[2.4em]"
             >
-              Thoughtful Design.{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-sky-200 to-slate-200">
-                Strong Foundations.
-              </span>{' '}
-              Lasting Spaces.
+              <span className="sr-only">{FULL_HEADLINE}</span>
+              <span aria-hidden="true">
+                {part1 || '\u200B'}
+                {part2 && (
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-sky-200 to-slate-200">
+                    {part2}
+                  </span>
+                )}
+                {part3 && <span>{part3}</span>}
+                <span className="inline-block w-[3px] h-[0.82em] bg-teal-400 ml-1.5 align-middle animate-pulse shadow-[0_0_8px_rgba(45,212,191,0.8)]" />
+              </span>
             </motion.h1>
 
             {/* Supporting Subtext */}
