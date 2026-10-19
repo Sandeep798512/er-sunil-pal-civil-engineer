@@ -69,17 +69,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const record = saveEnquiryToStorage('project', formData);
-      setSubmittedRef(record.id);
-      setIsSubmitting(false);
-    }, 500);
+    const record = saveEnquiryToStorage('project', formData);
+    setSubmittedRef(record.id);
+
+    const waText = `Hello Er. Sunil Pal,\n\nI have submitted a Project Consultation Enquiry [Ref: ${record.id}]:\n- Service: ${serviceLabels[formData.service]}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.location ? `\n- Location: ${formData.location}` : ''}${formData.email ? `\n- Email: ${formData.email}` : ''}\n- Requirement: ${formData.message}\n\nPlease let me know when we can discuss this.`;
+
+    const waUrl = createWhatsAppUrl(BUSINESS_INFO.primaryPhone, waText);
+
+    // Direct automatic open to WhatsApp
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+    setIsSubmitting(false);
   };
 
   const formattedWhatsAppUrl = submittedRef
     ? createWhatsAppUrl(
         BUSINESS_INFO.primaryPhone,
-        `Hello Er. Sunil Pal,\n\nI have sent a Project Consultation Enquiry [Ref: ${submittedRef}]:\n- Service: ${serviceLabels[formData.service]}\n- Name: ${formData.fullName}\n- Phone: ${formData.phone}${formData.location ? `\n- Location: ${formData.location}` : ''}\n- Details: ${formData.message}\n\nPlease let me know when we can discuss this.`
+        `Hello Er. Sunil Pal,\n\nI have sent a Project Consultation Enquiry [Ref: ${submittedRef}]:\n- Service: ${serviceLabels[formData.service]}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.location ? `\n- Location: ${formData.location}` : ''}${formData.email ? `\n- Email: ${formData.email}` : ''}\n- Requirement: ${formData.message}\n\nPlease let me know when we can discuss this.`
       )
     : '';
 
@@ -231,13 +237,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
                   <h3 className="text-2xl font-architectural font-bold text-white mb-2">
-                    Consultation Request Recorded
+                    Enquiry Forwarded to WhatsApp!
                   </h3>
                   <p className="text-sm font-mono text-teal-400 mb-4">
                     Reference ID: <span className="underline font-bold">{submittedRef}</span>
                   </p>
                   <p className="text-slate-300 text-sm max-w-lg mx-auto mb-8 leading-relaxed">
-                    Thank you, <strong className="text-white">{formData.fullName}</strong>. Your requirement for <strong>{serviceLabels[formData.service]}</strong> has been received by Er. Sunil Pal.
+                    Thank you, <strong className="text-white">{formData.fullName}</strong>. WhatsApp has been opened with your pre-filled project brief. If it didn't open automatically, please tap below:
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -248,7 +254,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                       className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm sm:text-base transition-all shadow-lg shadow-emerald-950/50 active:scale-95"
                     >
                       <MessageSquare className="w-4 h-4" />
-                      <span>Forward Directly via WhatsApp</span>
+                      <span>Open WhatsApp Chat Again</span>
                     </a>
 
                     <button

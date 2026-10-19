@@ -88,17 +88,23 @@ export const PropertyEnquiry: React.FC = () => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const record = saveEnquiryToStorage('property', formData);
-      setSubmittedRef(record.id);
-      setIsSubmitting(false);
-    }, 500);
+    const record = saveEnquiryToStorage('property', formData);
+    setSubmittedRef(record.id);
+
+    const waText = `Hello Er. Sunil Pal,\n\nI have submitted a Property Enquiry [Ref: ${record.id}]:\n- Requirement Type: ${formData.enquiryType}\n- Configuration: ${formData.propertyType}\n- Preferred Area: ${formData.locationPreference}\n- Budget Range: ${formData.budgetRange}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.notes ? `\n- Specific Notes: ${formData.notes}` : ''}\n\nPlease share available verified property options in Boisar.`;
+
+    const waUrl = createWhatsAppUrl(BUSINESS_INFO.primaryPhone, waText);
+
+    // Direct automatic open to WhatsApp
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+    setIsSubmitting(false);
   };
 
   const formattedWhatsAppUrl = submittedRef
     ? createWhatsAppUrl(
         BUSINESS_INFO.primaryPhone,
-        `Hello Er. Sunil Pal,\n\nI have submitted a Property Enquiry [Ref: ${submittedRef}]:\n- Type: ${formData.enquiryType}\n- Property: ${formData.propertyType}\n- Location: ${formData.locationPreference}\n- Budget: ${formData.budgetRange}\n- Name: ${formData.fullName}\n- Phone: ${formData.phone}${formData.notes ? `\n- Details: ${formData.notes}` : ''}\n\nPlease share available options in Boisar.`
+        `Hello Er. Sunil Pal,\n\nI have submitted a Property Enquiry [Ref: ${submittedRef}]:\n- Requirement Type: ${formData.enquiryType}\n- Configuration: ${formData.propertyType}\n- Preferred Area: ${formData.locationPreference}\n- Budget Range: ${formData.budgetRange}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.notes ? `\n- Specific Notes: ${formData.notes}` : ''}\n\nPlease share available verified property options in Boisar.`
       )
     : '';
 
@@ -144,13 +150,13 @@ export const PropertyEnquiry: React.FC = () => {
                 <CheckCircle2 className="w-9 h-9" />
               </div>
               <h3 className="text-2xl font-architectural font-bold text-white mb-2">
-                Property Enquiry Received
+                Property Enquiry Forwarded to WhatsApp!
               </h3>
               <p className="text-sm font-mono text-teal-400 mb-4">
                 Reference ID: <span className="underline font-bold">{submittedRef}</span>
               </p>
               <p className="text-slate-300 text-sm max-w-lg mx-auto mb-8 leading-relaxed">
-                Thank you, <strong className="text-white">{formData.fullName}</strong>. Er. Sunil Pal will review matching {formData.enquiryType.toLowerCase()} opportunities for <strong>{formData.propertyType}</strong> in <strong>{formData.locationPreference}</strong>.
+                Thank you, <strong className="text-white">{formData.fullName}</strong>. WhatsApp has been opened with your pre-filled property request. If it didn't open automatically, please tap below:
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -161,7 +167,7 @@ export const PropertyEnquiry: React.FC = () => {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm sm:text-base transition-all shadow-lg shadow-emerald-950/50 active:scale-95"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Send Enquiry via WhatsApp Now</span>
+                  <span>Open WhatsApp Chat Again</span>
                 </a>
 
                 <button
