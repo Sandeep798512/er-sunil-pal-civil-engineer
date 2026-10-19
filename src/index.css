@@ -21,6 +21,10 @@
     overflow-x: hidden;
     transition: background-color 0.25s ease, color 0.25s ease;
   }
+
+  section {
+    scroll-margin-top: 85px;
+  }
 }
 
 /* Custom architectural font helper */
@@ -105,6 +109,28 @@ html.light .bg-\[\#0D162C\] {
   background-color: #F1F5F9 !important;
 }
 
+/* FinalCTA background override in light mode */
+html.light section.bg-gradient-to-b.from-\[\#091024\].to-\[\#060B18\],
+html.light .bg-gradient-to-b.from-\[\#091024\].to-\[\#060B18\] {
+  background-image: none !important;
+  background-color: #F8FAFC !important;
+  border-top: 1px solid #E2E8F0 !important;
+}
+
+/* Gallery card bottom background in light mode */
+html.light .bg-gradient-to-b.from-\[\#0B142A\].to-\[\#080E1E\] {
+  background-image: none !important;
+  background-color: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+}
+
+/* WhyChooseUs banner in light mode */
+html.light .bg-gradient-to-r.from-slate-900.via-\[\#0B152D\].to-slate-900 {
+  background-image: none !important;
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
 /* Cards & Elevated surfaces */
 html.light .bg-slate-900,
 html.light .bg-slate-900\/95,
@@ -117,6 +143,20 @@ html.light .bg-slate-900\/40 {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+/* Sub-card items (like contact rows on the left) */
+html.light a.bg-slate-950\/80,
+html.light div.bg-slate-950\/80,
+html.light a.bg-slate-950,
+html.light div.bg-slate-950 {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light a.bg-slate-950\/80:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #0D9488 !important;
 }
 
 /* Floating WhatsApp box in light mode */
@@ -147,8 +187,36 @@ html.light .border-slate-700\/60 {
   border-color: #E2E8F0 !important;
 }
 
-/* Typography contrast */
-html.light .text-white {
+/* ==========================================================================
+   TEXT VISIBILITY OVER DARK IMAGES (MUST ALWAYS STAY WHITE)
+   ========================================================================== */
+html.light .absolute .text-white,
+html.light [class*="absolute"] h3.text-white,
+html.light [class*="absolute"] .text-white,
+html.light [class*="absolute"] span.text-white {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
+}
+
+html.light [class*="absolute"] .text-teal-400,
+html.light [class*="absolute"] .text-teal-300 {
+  color: #2DD4BF !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Service card number & icon badges over images */
+html.light [class*="absolute"] .bg-\[\#070D1E\]\/90,
+html.light [class*="absolute"] .bg-\[\#080E1E\]\/90 {
+  background-color: rgba(7, 13, 30, 0.9) !important;
+  color: #2DD4BF !important;
+  border-color: rgba(45, 212, 191, 0.4) !important;
+}
+
+/* General Typography outside of image overlays */
+html.light h1:not([class*="absolute"] *),
+html.light h2:not([class*="absolute"] *),
+html.light h3:not([class*="absolute"] *),
+html.light .text-white:not([class*="absolute"] *) {
   color: #0F172A !important;
 }
 
@@ -160,12 +228,22 @@ html.light .text-slate-200 {
   color: #1E293B !important;
 }
 
-html.light .text-slate-300 {
+html.light .text-slate-300:not([class*="absolute"] *) {
   color: #334155 !important;
 }
 
-html.light .text-slate-400 {
+html.light .text-slate-400:not([class*="absolute"] *) {
   color: #64748B !important;
+}
+
+/* Tags, specs and unselected button states */
+html.light .bg-slate-800,
+html.light .bg-slate-800\/80,
+html.light .bg-slate-800\/60,
+html.light .bg-slate-800\/50 {
+  background-color: #F1F5F9 !important;
+  color: #334155 !important;
+  border-color: #E2E8F0 !important;
 }
 
 /* Preserve high readability for solid buttons and badges */
@@ -184,13 +262,29 @@ html.light .text-slate-950 {
   color: #022C22 !important;
 }
 
+/* Secondary Action Buttons (e.g. WhatsApp Enquiry in FinalCTA) */
+html.light section a.bg-slate-900,
+html.light section button.bg-slate-900\/80,
+html.light section a.bg-slate-900\/80 {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+html.light section a.bg-slate-900:hover,
+html.light section button.bg-slate-900\/80:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #0D9488 !important;
+  color: #0D9488 !important;
+}
+
 /* Badges with light backgrounds */
 html.light .bg-teal-950\/80,
 html.light .bg-teal-950\/60,
 html.light .bg-teal-950\/50,
 html.light .bg-teal-950\/40,
 html.light .bg-teal-950\/20,
-html.light .bg-teal-500\/20 {
+html.light .bg-teal-500\/20:not([class*="absolute"] *) {
   background-color: #CCFBF1 !important;
   color: #0F766E !important;
   border-color: #99F6E4 !important;
@@ -199,7 +293,8 @@ html.light .bg-teal-500\/20 {
 html.light .bg-sky-950\/80,
 html.light .bg-sky-950\/60,
 html.light .bg-sky-950\/50,
-html.light .bg-sky-950\/20 {
+html.light .bg-sky-950\/20,
+html.light .bg-sky-500\/20 {
   background-color: #E0F2FE !important;
   color: #0369A1 !important;
   border-color: #BAE6FD !important;
@@ -208,10 +303,17 @@ html.light .bg-sky-950\/20 {
 html.light .bg-emerald-950\/80,
 html.light .bg-emerald-950\/60,
 html.light .bg-emerald-950\/50,
-html.light .bg-emerald-950\/20 {
+html.light .bg-emerald-950\/20,
+html.light .bg-emerald-500\/20 {
   background-color: #D1FAE5 !important;
   color: #065F46 !important;
   border-color: #A7F3D0 !important;
+}
+
+html.light .bg-amber-500\/20 {
+  background-color: #FEF3C7 !important;
+  color: #B45309 !important;
+  border-color: #FDE68A !important;
 }
 
 /* Form inputs & interactive fields */
@@ -221,6 +323,11 @@ html.light select {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
   border-color: #CBD5E1 !important;
+}
+
+html.light select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
 }
 
 html.light input:focus,
@@ -233,6 +340,10 @@ html.light select:focus {
 html.light input::placeholder,
 html.light textarea::placeholder {
   color: #94A3B8 !important;
+}
+
+html.light label {
+  color: #475569 !important;
 }
 
 /* Light mode Blueprint grid */
@@ -253,6 +364,12 @@ html.light header {
   background-color: rgba(255, 255, 255, 0.94) !important;
   border-bottom: 1px solid #E2E8F0 !important;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light header a[href^="tel:"] {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
 }
 
 html.light nav a {
@@ -277,9 +394,12 @@ html.light .fixed.bottom-0.bg-\[\#070D1E\]\/95 {
   box-shadow: 0 -4px 20px -2px rgba(15, 23, 42, 0.06) !important;
 }
 
-/* Hero section headline gradient in light mode */
+/* Headline gradient in light mode */
 html.light .bg-gradient-to-r.from-teal-300 {
-  background-image: linear-gradient(to right, #0D9488, #0284C7, #0F172A) !important;
+  background-image: linear-gradient(to right, #0D9488, #0284C7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
 }
 
 /* Hero coordinate watermark in light mode */

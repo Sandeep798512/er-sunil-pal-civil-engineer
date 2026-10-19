@@ -38,7 +38,7 @@ export const SERVICES: ServiceItem[] = [
       'Foundation, masonry, waterproofing & finishing',
       'Direct on-site engineering oversight'
     ],
-    image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1541971875076-8f970d573be6?auto=format&fit=crop&w=1200&q=80',
     iconName: 'Building2'
   },
   {
@@ -102,7 +102,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'gal-4',
     title: 'Structural Masonry & Foundation Execution',
     category: 'Modern Elevation',
-    image: 'https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
     description: 'On-site civil construction methodology showing reinforced concrete beam-column junction and precision brick alignment.',
     specifications: ['Fe500 Grade Steel Reinforcement', 'M20 Concrete Mix Proportion', 'Standard Curing Protocol', 'Plinth Beam Level Alignment']
   },
