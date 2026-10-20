@@ -21,6 +21,7 @@ export const BUSINESS_INFO = {
     full: 'Shop No. 7, Building No. 10B, Sodhi Residency, Vrindavan Nagari, Paam, Boisar – 401501.',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Sodhi+Residency+Vrindavan+Nagari+Boisar+401501'
   },
+  profilePhoto: '/images/er-sunil.jpeg',
   operatingHours: 'Mon - Sat: 9:30 AM - 8:30 PM | Sun: By Appointment',
   serviceArea: 'Boisar, Palghar, Tarapur & surrounding regions',
 };

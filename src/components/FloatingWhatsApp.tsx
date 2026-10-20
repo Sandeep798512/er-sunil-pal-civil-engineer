@@ -39,9 +39,13 @@ export const FloatingWhatsApp: React.FC = () => {
           {/* Header */}
           <div className="p-4 bg-gradient-to-r from-teal-900/60 to-slate-900 border-b border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="relative w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xs">
-                SP
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-[#091126]" />
+              <div className="relative w-8 h-8 shrink-0">
+                <img
+                  src="/images/er-sunil.jpeg"
+                  alt="Er. Sunil Pal"
+                  className="w-8 h-8 rounded-full object-cover object-[center_20%] border border-emerald-400/50 shadow-sm"
+                />
+                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-[#091126]" />
               </div>
               <div>
                 <div className="text-xs font-bold text-white">Er. Sunil Pal</div>

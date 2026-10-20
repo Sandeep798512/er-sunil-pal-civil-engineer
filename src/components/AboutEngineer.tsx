@@ -25,15 +25,19 @@ export const AboutEngineer: React.FC = () => {
                 
                 <div className="rounded-2xl bg-[#091126] overflow-hidden border border-slate-800 p-6 sm:p-8 flex flex-col items-center text-center">
                   
-                  {/* Portrait Placeholder with Geometric Blueprint Emblem */}
-                  <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-slate-900 border-2 border-teal-500/40 p-2 shadow-inner mb-6 flex items-center justify-center group">
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#0E1A38] to-[#0A1329] flex flex-col items-center justify-center border border-teal-500/20 text-teal-300">
-                      <Compass className="w-12 h-12 text-teal-400 mb-1" />
-                      <span className="font-architectural text-lg font-bold tracking-widest text-white">SP</span>
-                      <span className="text-[9px] font-mono uppercase text-teal-400 tracking-wider">Er. Sunil Pal</span>
-                    </div>
+                  {/* Real Portrait Photo with Architectural Border */}
+                  <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-slate-900 border-2 border-teal-500/50 p-1.5 shadow-xl shadow-teal-950/40 mb-6 flex items-center justify-center group">
+                    <img
+                      src="/images/er-sunil.jpeg"
+                      alt="Er. Sunil Pal — Civil Engineer"
+                      className="w-full h-full rounded-full object-cover object-[center_20%] shadow-inner group-hover:scale-105 transition-transform duration-500"
+                      loading="eager"
+                    />
 
-                    <div className="absolute bottom-1 right-2 w-8 h-8 rounded-full bg-teal-500 border-2 border-[#091126] flex items-center justify-center text-slate-950 font-bold text-xs" title="Verified Professional">
+                    <div
+                      className="absolute bottom-1 right-2 sm:bottom-2 sm:right-3 w-8 h-8 rounded-full bg-teal-500 border-2 border-[#091126] flex items-center justify-center text-slate-950 font-bold text-xs shadow-lg"
+                      title="Verified Civil Engineer"
+                    >
                       <Check className="w-4 h-4 stroke-[3]" />
                     </div>
                   </div>

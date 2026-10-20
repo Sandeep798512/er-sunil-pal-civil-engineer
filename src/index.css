@@ -159,11 +159,15 @@ html.light a.bg-slate-950\/80:hover {
   border-color: #0D9488 !important;
 }
 
-/* Floating WhatsApp box in light mode */
+/* Floating WhatsApp box & About card in light mode */
 html.light .bg-\[\#091126\] {
   background-color: #FFFFFF !important;
-  border-color: #CBD5E1 !important;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .border-\[\#091126\] {
+  border-color: #FFFFFF !important;
 }
 
 /* Card inner headers / footers */
