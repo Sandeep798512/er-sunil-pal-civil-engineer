@@ -10,7 +10,7 @@ assert.strictEqual(BUSINESS_INFO.name, 'Er. Sunil Pal', 'Business name must matc
 assert.strictEqual(BUSINESS_INFO.role, 'Civil Engineer', 'Profession must be Civil Engineer');
 assert.strictEqual(BUSINESS_INFO.primaryPhone, '8127236929', 'Primary phone must be 8127236929');
 assert.strictEqual(BUSINESS_INFO.secondaryPhone, '8010801624', 'Secondary phone must be 8010801624');
-assert.strictEqual(BUSINESS_INFO.email, 'sandeepgaud7985@gmail.com', 'Email must be sandeepgaud7985@gmail.com');
+assert.strictEqual(BUSINESS_INFO.email, 'softer7985@gmail.com', 'Email must be softer7985@gmail.com');
 assert.ok(
   BUSINESS_INFO.address.full.includes('Shop No. 7') &&
   BUSINESS_INFO.address.full.includes('Building No. 10B') &&

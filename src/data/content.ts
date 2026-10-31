@@ -10,7 +10,7 @@ export const BUSINESS_INFO = {
   ],
   primaryPhone: '8127236929',
   secondaryPhone: '8010801624',
-  email: 'sandeepgaud7985@gmail.com',
+  email: 'softer7985@gmail.com',
   address: {
     shop: 'Shop No. 7',
     building: 'Building No. 10B, Sodhi Residency',

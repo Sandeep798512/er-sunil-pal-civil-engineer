@@ -4,11 +4,11 @@
  * Automated Google Sheets Lead Capture & Instant Email Alert System
  * =========================================================================
  * 
- * Target Email: sandeepgaud7985@gmail.com
+ * Target Email: softer7985@gmail.com
  * Office: Shop No. 7, Bldg No. 10B, Sodhi Residency, Vrindavan Nagari, Boisar
  */
 
-var ADMIN_EMAIL = "sandeepgaud7985@gmail.com";
+var ADMIN_EMAIL = "softer7985@gmail.com";
 var SHEET_NAME = "Website Leads";
 
 /**
