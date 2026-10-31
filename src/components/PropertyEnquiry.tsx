@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Key, Send, CheckCircle2, MessageSquare, AlertCircle } from 'lucide-react';
+import { Home, Key, Send, CheckCircle2, MessageSquare, AlertCircle, Mail } from 'lucide-react';
 import { PropertyEnquiryData } from '../types';
 import { BUSINESS_INFO } from '../data/content';
-import { isValidIndianPhone, saveEnquiryToStorage, createWhatsAppUrl } from '../utils/helpers';
+import { isValidIndianPhone } from '../utils/helpers';
+import { submitPropertyLead } from '../services/leadService';
 
 export const PropertyEnquiry: React.FC = () => {
   const [formData, setFormData] = useState<PropertyEnquiryData>({
@@ -19,6 +20,7 @@ export const PropertyEnquiry: React.FC = () => {
   const [errors, setErrors] = useState<Partial<Record<keyof PropertyEnquiryData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
+  const [formattedWhatsAppUrl, setFormattedWhatsAppUrl] = useState<string>('');
 
   const buyBudgetOptions = [
     'Under ₹15 Lakhs',
@@ -82,31 +84,25 @@ export const PropertyEnquiry: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    const record = saveEnquiryToStorage('property', formData);
-    setSubmittedRef(record.id);
+    try {
+      const result = await submitPropertyLead(formData);
+      setSubmittedRef(result.id);
+      setFormattedWhatsAppUrl(result.waUrl);
 
-    const waText = `Hello Er. Sunil Pal,\n\nI have submitted a Property Enquiry [Ref: ${record.id}]:\n- Requirement Type: ${formData.enquiryType}\n- Configuration: ${formData.propertyType}\n- Preferred Area: ${formData.locationPreference}\n- Budget Range: ${formData.budgetRange}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.notes ? `\n- Specific Notes: ${formData.notes}` : ''}\n\nPlease share available verified property options in Boisar.`;
-
-    const waUrl = createWhatsAppUrl(BUSINESS_INFO.primaryPhone, waText);
-
-    // Direct automatic open to WhatsApp
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-
-    setIsSubmitting(false);
+      // Direct automatic open to WhatsApp
+      window.open(result.waUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.error('Property enquiry submission error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  const formattedWhatsAppUrl = submittedRef
-    ? createWhatsAppUrl(
-        BUSINESS_INFO.primaryPhone,
-        `Hello Er. Sunil Pal,\n\nI have submitted a Property Enquiry [Ref: ${submittedRef}]:\n- Requirement Type: ${formData.enquiryType}\n- Configuration: ${formData.propertyType}\n- Preferred Area: ${formData.locationPreference}\n- Budget Range: ${formData.budgetRange}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.notes ? `\n- Specific Notes: ${formData.notes}` : ''}\n\nPlease share available verified property options in Boisar.`
-      )
-    : '';
 
   return (
     <section id="property-enquiry" className="relative py-20 lg:py-28 bg-[#091024] border-t border-slate-800">
@@ -150,13 +146,26 @@ export const PropertyEnquiry: React.FC = () => {
                 <CheckCircle2 className="w-9 h-9" />
               </div>
               <h3 className="text-2xl font-architectural font-bold text-white mb-2">
-                Property Enquiry Forwarded to WhatsApp!
+                Property Enquiry Recorded & Forwarded!
               </h3>
-              <p className="text-sm font-mono text-teal-400 mb-4">
+              <p className="text-sm font-mono text-teal-400 mb-3">
                 Reference ID: <span className="underline font-bold">{submittedRef}</span>
               </p>
+
+              {/* Dual Sync Confirmation Badges */}
+              <div className="inline-flex flex-wrap items-center justify-center gap-2 mb-5">
+                <span className="px-3 py-1 rounded-full bg-teal-950/80 border border-teal-500/40 text-teal-300 text-[11px] font-mono flex items-center gap-1.5 shadow-sm">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-400" />
+                  Recorded in Digital Register
+                </span>
+                <span className="px-3 py-1 rounded-full bg-sky-950/80 border border-sky-500/40 text-sky-300 text-[11px] font-mono flex items-center gap-1.5 shadow-sm">
+                  <Mail className="w-3.5 h-3.5 text-sky-400" />
+                  Alert Sent to Er. Sunil Pal
+                </span>
+              </div>
+
               <p className="text-slate-300 text-sm max-w-lg mx-auto mb-8 leading-relaxed">
-                Thank you, <strong className="text-white">{formData.fullName}</strong>. WhatsApp has been opened with your pre-filled property request. If it didn't open automatically, please tap below:
+                Thank you, <strong className="text-white">{formData.fullName}</strong>. Your property criteria have been safely saved to our register, and WhatsApp was opened with your pre-filled request. If WhatsApp did not open automatically, please tap below:
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -167,13 +176,14 @@ export const PropertyEnquiry: React.FC = () => {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm sm:text-base transition-all shadow-lg shadow-emerald-950/50 active:scale-95"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>Open WhatsApp Chat Again</span>
+                  <span>Open WhatsApp Chat</span>
                 </a>
 
                 <button
                   type="button"
                   onClick={() => {
                     setSubmittedRef(null);
+                    setFormattedWhatsAppUrl('');
                     setFormData({
                       enquiryType: 'Buy',
                       locationPreference: 'Vrindavan Nagari / Paam',
@@ -184,7 +194,7 @@ export const PropertyEnquiry: React.FC = () => {
                       notes: '',
                     });
                   }}
-                  className="w-full sm:w-auto px-5 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold border border-slate-700 transition-colors active:scale-95"
+                  className="w-full sm:w-auto px-5 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold border border-slate-700 transition-colors active:scale-95 cursor-pointer"
                 >
                   Submit Another Enquiry
                 </button>
@@ -364,10 +374,13 @@ export const PropertyEnquiry: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-teal-400 hover:bg-teal-300 disabled:bg-slate-700 text-slate-950 font-bold text-base transition-all shadow-lg shadow-teal-950/40 active:scale-98"
+                  className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-teal-400 hover:bg-teal-300 disabled:bg-slate-700 text-slate-950 font-bold text-base transition-all shadow-lg shadow-teal-950/40 active:scale-98 cursor-pointer"
                 >
                   {isSubmitting ? (
-                    <span>Validating & Recording...</span>
+                    <>
+                      <span className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                      <span>Recording in Register & Opening WhatsApp...</span>
+                    </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />

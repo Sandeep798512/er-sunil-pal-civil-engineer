@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Send, MessageSquare, CheckCircle2, AlertCircle, Clock, ExternalLink } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/content';
 import { ServiceType, ContactFormData } from '../types';
-import { isValidIndianPhone, saveEnquiryToStorage, createWhatsAppUrl } from '../utils/helpers';
+import { isValidIndianPhone } from '../utils/helpers';
+import { submitProjectLead } from '../services/leadService';
 
 interface ContactSectionProps {
   preselectedService?: ServiceType;
@@ -22,6 +23,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
+  const [formattedWhatsAppUrl, setFormattedWhatsAppUrl] = useState<string>('');
 
   useEffect(() => {
     if (preselectedService) {
@@ -63,31 +65,25 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    const record = saveEnquiryToStorage('project', formData);
-    setSubmittedRef(record.id);
+    try {
+      const result = await submitProjectLead(formData);
+      setSubmittedRef(result.id);
+      setFormattedWhatsAppUrl(result.waUrl);
 
-    const waText = `Hello Er. Sunil Pal,\n\nI have submitted a Project Consultation Enquiry [Ref: ${record.id}]:\n- Service: ${serviceLabels[formData.service]}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.location ? `\n- Location: ${formData.location}` : ''}${formData.email ? `\n- Email: ${formData.email}` : ''}\n- Requirement: ${formData.message}\n\nPlease let me know when we can discuss this.`;
-
-    const waUrl = createWhatsAppUrl(BUSINESS_INFO.primaryPhone, waText);
-
-    // Direct automatic open to WhatsApp
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-
-    setIsSubmitting(false);
+      // Direct automatic open to WhatsApp
+      window.open(result.waUrl, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.error('Submission error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  const formattedWhatsAppUrl = submittedRef
-    ? createWhatsAppUrl(
-        BUSINESS_INFO.primaryPhone,
-        `Hello Er. Sunil Pal,\n\nI have sent a Project Consultation Enquiry [Ref: ${submittedRef}]:\n- Service: ${serviceLabels[formData.service]}\n- Client Name: ${formData.fullName}\n- Mobile: ${formData.phone}${formData.location ? `\n- Location: ${formData.location}` : ''}${formData.email ? `\n- Email: ${formData.email}` : ''}\n- Requirement: ${formData.message}\n\nPlease let me know when we can discuss this.`
-      )
-    : '';
 
   return (
     <section id="contact" className="relative py-20 lg:py-28 bg-[#070D1E] border-t border-slate-800">
@@ -237,13 +233,26 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
                   <h3 className="text-2xl font-architectural font-bold text-white mb-2">
-                    Enquiry Forwarded to WhatsApp!
+                    Enquiry Recorded & Forwarded!
                   </h3>
-                  <p className="text-sm font-mono text-teal-400 mb-4">
+                  <p className="text-sm font-mono text-teal-400 mb-3">
                     Reference ID: <span className="underline font-bold">{submittedRef}</span>
                   </p>
+
+                  {/* Dual Sync Confirmation Badges */}
+                  <div className="inline-flex flex-wrap items-center justify-center gap-2 mb-5">
+                    <span className="px-3 py-1 rounded-full bg-teal-950/80 border border-teal-500/40 text-teal-300 text-[11px] font-mono flex items-center gap-1.5 shadow-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-400" />
+                      Recorded in Digital Register
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-sky-950/80 border border-sky-500/40 text-sky-300 text-[11px] font-mono flex items-center gap-1.5 shadow-sm">
+                      <Mail className="w-3.5 h-3.5 text-sky-400" />
+                      Alert Sent to Er. Sunil Pal
+                    </span>
+                  </div>
+
                   <p className="text-slate-300 text-sm max-w-lg mx-auto mb-8 leading-relaxed">
-                    Thank you, <strong className="text-white">{formData.fullName}</strong>. WhatsApp has been opened with your pre-filled project brief. If it didn't open automatically, please tap below:
+                    Thank you, <strong className="text-white">{formData.fullName}</strong>. Your enquiry details have been safely recorded, and WhatsApp was opened with your pre-filled project specifications. If WhatsApp did not open automatically, please tap below:
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -254,13 +263,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                       className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm sm:text-base transition-all shadow-lg shadow-emerald-950/50 active:scale-95"
                     >
                       <MessageSquare className="w-4 h-4" />
-                      <span>Open WhatsApp Chat Again</span>
+                      <span>Open WhatsApp Chat</span>
                     </a>
 
                     <button
                       type="button"
                       onClick={() => {
                         setSubmittedRef(null);
+                        setFormattedWhatsAppUrl('');
                         setFormData({
                           fullName: '',
                           phone: '',
@@ -270,7 +280,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                           message: '',
                         });
                       }}
-                      className="w-full sm:w-auto px-5 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold border border-slate-700 transition-colors active:scale-95"
+                      className="w-full sm:w-auto px-5 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold border border-slate-700 transition-colors active:scale-95 cursor-pointer"
                     >
                       Send Another Request
                     </button>
@@ -434,10 +444,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-teal-400 hover:bg-teal-300 disabled:bg-slate-700 text-slate-950 font-bold text-base transition-all shadow-lg shadow-teal-950/40 active:scale-98"
+                      className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-xl bg-teal-400 hover:bg-teal-300 disabled:bg-slate-700 text-slate-950 font-bold text-base transition-all shadow-lg shadow-teal-950/40 active:scale-98 cursor-pointer"
                     >
                       {isSubmitting ? (
-                        <span>Validating & Recording...</span>
+                        <>
+                          <span className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                          <span>Recording in Register & Opening WhatsApp...</span>
+                        </>
                       ) : (
                         <>
                           <Send className="w-4 h-4" />

@@ -25,9 +25,10 @@ const STORAGE_KEY = 'er_sunil_pal_enquiries_v1';
 
 export const saveEnquiryToStorage = (
   type: 'project' | 'property',
-  data: ContactFormData | PropertyEnquiryData
+  data: ContactFormData | PropertyEnquiryData,
+  customId?: string
 ): SavedEnquiry => {
-  const id = generateEnquiryId(type === 'project' ? 'PRJ' : 'PROP');
+  const id = customId || generateEnquiryId(type === 'project' ? 'PRJ' : 'PROP');
   const record: SavedEnquiry = {
     id,
     timestamp: new Date().toISOString(),
