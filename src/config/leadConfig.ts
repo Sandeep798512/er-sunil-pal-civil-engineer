@@ -7,8 +7,8 @@ export const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL: string =
   (import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL as string) || '';
 
 export const LEAD_CONFIG = {
-  adminEmail: 'engineer7030@gmail.com',
-  primaryPhone: '7030399100',
+  adminEmail: 'sandeepgaud8081@gmail.com',
+  primaryPhone: '8127236929',
   secondaryPhone: '8010801624',
   webhookTimeoutMs: 4000, // Max 4 seconds before gracefully falling back so WhatsApp opening is never blocked
 };

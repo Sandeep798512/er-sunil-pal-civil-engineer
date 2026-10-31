@@ -351,7 +351,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preselectedServi
                         type="tel"
                         inputMode="tel"
                         id="contactPhone"
-                        placeholder="e.g. 7030399100"
+                        placeholder="e.g. 8127236929"
                         value={formData.phone}
                         maxLength={10}
                         onChange={(e) => {

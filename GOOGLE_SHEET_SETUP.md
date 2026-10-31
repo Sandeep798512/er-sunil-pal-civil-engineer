@@ -5,7 +5,7 @@ Is guide se aap 2 minute me **Google Sheets + Email Alert + WhatsApp** ka automa
 ---
 
 ### Step 1: Ek Nayi Google Sheet Banayein
-1. Apne browser me [sheets.google.com](https://sheets.google.com) open karein (Sunil sir ki Google ID `engineer7030@gmail.com` se ya apni ID se).
+1. Apne browser me [sheets.google.com](https://sheets.google.com) open karein (`sandeepgaud8081@gmail.com` se ya Sunil sir ki ID se).
 2. Ek nayi blank spreadsheet banayein aur uska naam rakhein:  
    **`Er. Sunil Pal - Website Inquiries`**
 
@@ -59,5 +59,5 @@ export const DEFAULT_GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macro
 ### 🚀 Result & Testing:
 - Jaise hi koi client website par project ya property enquiry form bharega:
   1. Google Sheet me auto row add ho jayegi with Date, Time, Name, Mobile, Service, Details.
-  2. Sunil sir ki email (`engineer7030@gmail.com`) par turant high-priority formatted alert aayega jisme 1-click **"Chat on WhatsApp"** aur **"Call Directly"** ke buttons honge.
+  2. Aapki email (`sandeepgaud8081@gmail.com`) par turant high-priority formatted alert aayega jisme 1-click **"Chat on WhatsApp"** aur **"Call Directly"** ke buttons honge.
   3. Client ki screen par WhatsApp automatically pre-filled details ke sath open ho jayega.

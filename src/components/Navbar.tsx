@@ -122,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
               <a
                 href={`tel:${BUSINESS_INFO.primaryPhone}`}
                 className="flex items-center gap-2 text-xs font-medium text-slate-300 hover:text-teal-300 px-3 py-2 rounded-lg border border-slate-700/60 bg-slate-900/40 hover:border-teal-500/40 transition-colors"
-                title="Call 7030399100"
+                title={`Call ${BUSINESS_INFO.primaryPhone}`}
               >
                 <Phone className="w-3.5 h-3.5 text-teal-400" />
                 <span>{BUSINESS_INFO.primaryPhone}</span>

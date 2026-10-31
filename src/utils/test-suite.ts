@@ -8,9 +8,9 @@ console.log('🧪 Starting Er. Sunil Pal Website Automated Verification Suite...
 console.log('1. Verifying Business Information against Source of Truth:');
 assert.strictEqual(BUSINESS_INFO.name, 'Er. Sunil Pal', 'Business name must match');
 assert.strictEqual(BUSINESS_INFO.role, 'Civil Engineer', 'Profession must be Civil Engineer');
-assert.strictEqual(BUSINESS_INFO.primaryPhone, '7030399100', 'Primary phone must be 7030399100');
+assert.strictEqual(BUSINESS_INFO.primaryPhone, '8127236929', 'Primary phone must be 8127236929');
 assert.strictEqual(BUSINESS_INFO.secondaryPhone, '8010801624', 'Secondary phone must be 8010801624');
-assert.strictEqual(BUSINESS_INFO.email, 'engineer7030@gmail.com', 'Email must be engineer7030@gmail.com');
+assert.strictEqual(BUSINESS_INFO.email, 'sandeepgaud8081@gmail.com', 'Email must be sandeepgaud8081@gmail.com');
 assert.ok(
   BUSINESS_INFO.address.full.includes('Shop No. 7') &&
   BUSINESS_INFO.address.full.includes('Building No. 10B') &&
@@ -34,20 +34,20 @@ console.log('   ✅ All 3 verified services are correctly configured.\n');
 
 // 3. Verify Phone Validation
 console.log('3. Verifying Indian Mobile Number Validation:');
-assert.strictEqual(isValidIndianPhone('7030399100'), true, '7030399100 should be valid');
+assert.strictEqual(isValidIndianPhone('8127236929'), true, '8127236929 should be valid');
 assert.strictEqual(isValidIndianPhone('8010801624'), true, '8010801624 should be valid');
 assert.strictEqual(isValidIndianPhone('9820012345'), true, '9820012345 should be valid');
 assert.strictEqual(isValidIndianPhone('1234567890'), false, '1234567890 should be invalid (does not start with 6-9)');
 assert.strictEqual(isValidIndianPhone('7030399'), false, 'Incomplete number should be invalid');
 assert.strictEqual(isValidIndianPhone(''), false, 'Empty phone should be invalid');
-assert.strictEqual(sanitizeIndianPhone('+91 70303 99100'), '7030399100', 'Sanitize formatted phone should work');
+assert.strictEqual(sanitizeIndianPhone('+91 81272 36929'), '8127236929', 'Sanitize formatted phone should work');
 console.log('   ✅ Indian phone validation logic is robust and correct.\n');
 
 // 4. Verify WhatsApp URL Generation
 console.log('4. Verifying WhatsApp URL formatting:');
 const sampleMsg = 'Hello Er. Sunil Pal, I have an inquiry.';
 const waUrl = createWhatsAppUrl(BUSINESS_INFO.primaryPhone, sampleMsg);
-assert.ok(waUrl.startsWith('https://wa.me/917030399100?text='), 'WhatsApp URL must use international format 917030399100');
+assert.ok(waUrl.startsWith('https://wa.me/918127236929?text='), 'WhatsApp URL must use international format 918127236929');
 assert.ok(waUrl.includes(encodeURIComponent(sampleMsg)), 'Message must be URL encoded');
 console.log('   ✅ WhatsApp URL generation accurately configured with verified number.\n');
 

@@ -5,12 +5,12 @@ export const BUSINESS_INFO = {
   role: 'Civil Engineer',
   tagline: 'Civil Construction Work • House Planning • Flat Sale & Rental',
   phones: [
-    { number: '7030399100', display: '+91 70303 99100', isPrimary: true },
+    { number: '8127236929', display: '+91 81272 36929', isPrimary: true },
     { number: '8010801624', display: '+91 80108 01624', isPrimary: false },
   ],
-  primaryPhone: '7030399100',
+  primaryPhone: '8127236929',
   secondaryPhone: '8010801624',
-  email: 'engineer7030@gmail.com',
+  email: 'sandeepgaud8081@gmail.com',
   address: {
     shop: 'Shop No. 7',
     building: 'Building No. 10B, Sodhi Residency',
